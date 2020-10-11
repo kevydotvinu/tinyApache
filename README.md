@@ -45,12 +45,14 @@ EOF
 
 podman run --rm \
         --interactive \
-        --tty --privileged \
+        --tty \
+	--privileged \
         --net host \
         --volume "$(pwd)/htdocs:/var/www/localhost/htdocs" \
         --security-opt label=disable \
         --name=tinyapache localhost/kevydotvinu/tinyapache:v1
 ```
+To run the pod in background, replace --rm, --interactive and --tty with --detach.
 
 ## Boot from iPXE boot script
 Press Ctrl+b to get to the iPXE prompt and type in the following commands:
