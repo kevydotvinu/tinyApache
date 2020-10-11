@@ -39,7 +39,7 @@ buildah bud --security-opt label=disable --tag localhost/kevydotvinu/tinyapache:
 
 ### Run container image
 ```bash
-cat << EOF > index.html
+cat << EOF > htdocs/index.html
 I am Alpine + Apache!
 EOF
 
@@ -47,8 +47,7 @@ podman run --rm \
         --interactive \
         --tty --privileged \
         --net host \
-        --volume "$(pwd)/boot.ipxe:/var/www/localhost/htdocs/boot.ipxe" \
-        --volume "$(pwd)/index.html:/var/www/localhost/htdocs/index.html" \
+        --volume "$(pwd)/htdocs:/var/www/localhost/htdocs \
         --security-opt label=disable \
         --name=tinyapache localhost/kevydotvinu/tinyapache:v1
 ```
