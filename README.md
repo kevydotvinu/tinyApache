@@ -56,5 +56,5 @@ podman run --rm \
 Press Ctrl+b to get to the iPXE prompt and type in the following commands:
 ```bash
 iPXE> dhcp
-iPXE> chain http://192.168.X.X/boot.ipxe
+iPXE> chain http://192.168.X.X:8080/boot.ipxe
 ```
