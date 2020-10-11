@@ -44,13 +44,13 @@ I am Alpine + Apache!
 EOF
 
 podman run --rm \
-        --interactive \
-        --tty \
-	--privileged \
-        --net host \
-        --volume "$(pwd)/htdocs:/var/www/localhost/htdocs" \
-        --security-opt label=disable \
-        --name=tinyapache localhost/kevydotvinu/tinyapache:v1
+           --interactive \
+           --tty \
+	   --privileged \
+           --net host \
+           --volume "$(pwd)/htdocs:/var/www/localhost/htdocs" \
+           --security-opt label=disable \
+           --name=tinyapache localhost/kevydotvinu/tinyapache:v1
 ```
 To run the pod in background, replace --rm, --interactive and --tty with --detach.
 
