@@ -55,7 +55,7 @@ podman run --rm \
 To run the pod in background, replace --rm, --interactive and --tty with --detach.
 
 ## Boot from iPXE boot script
-Press Ctrl+b to get to the iPXE prompt and type in the following commands:
+Press Ctrl+b to get the iPXE prompt and type in the following commands:
 ```bash
 iPXE> dhcp
 iPXE> chain http://192.168.X.X:8080/boot.ipxe
