@@ -47,7 +47,7 @@ podman run --rm \
         --interactive \
         --tty --privileged \
         --net host \
-        --volume "$(pwd)/htdocs:/var/www/localhost/htdocs \
+        --volume "$(pwd)/htdocs:/var/www/localhost/htdocs" \
         --security-opt label=disable \
         --name=tinyapache localhost/kevydotvinu/tinyapache:v1
 ```
