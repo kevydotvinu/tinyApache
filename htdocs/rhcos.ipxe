@@ -1,0 +1,64 @@
+#!ipxe
+
+set server http://192.168.100.1:8080
+set kernel ${server}/rhcos-4.5.6-x86_64-installer-kernel-x86_64
+set initrd ${server}/rhcos-4.5.6-x86_64-installer-initramfs.x86_64.img
+set image ${server}/rhcos-4.5.6-x86_64-metal.x86_64.raw.gz
+
+:start
+menu OpenShift Container Platform
+item --gap --             ---------------------------- Cluster Installer --------------------------
+item Bootstrap0 Bootstrap-0
+item Master0 Master-0
+item Worker0 Worker-0
+item --gap --             --------------------------------- Options -------------------------------
+item exit Exit
+choose --timeout 20000 --default back target && goto ${target} || goto menu
+
+:Bootstrap0
+echo Booting Bootstrap-0
+set ignition ${server}/bootstrap.ign
+set ip 192.168.100.51
+set gw 192.168.100.1
+set netmask 255.255.255.0
+set hostname bootstrap.foo.bar.com
+set ifname ens3
+set nameserver 192.168.100.1
+set device sda
+kernel ${kernel} ip=${ip}::${gw}:${netmask}:${hostname}:${ifname}:none nameserver=${nameserver} rd.neednet=1 initrd=${initrd} console=tty0 coreos.inst=yes coreos.inst.install_dev=${device} coreos.inst.image_url=${image} coreos.inst.ignition_url=${ignition}
+initrd ${initrd}
+boot || imgfree
+goto start
+
+:Master0
+echo Booting Master-0
+set ignition ${server}/master.ign
+set ip 192.168.100.52
+set gw 192.168.100.1
+set netmask 255.255.255.0
+set hostname master.foo.bar.com
+set ifname ens3
+set nameserver 192.168.100.1
+set device sda
+kernel ${kernel} ip=${ip}::${gw}:${netmask}:${hostname}:${ifname}:none nameserver=${nameserver} rd.neednet=1 initrd=${initrd} console=tty0 coreos.inst=yes coreos.inst.install_dev=${device} coreos.inst.image_url=${image} coreos.inst.ignition_url=${ignition}
+initrd ${initrd}
+boot || imgfree
+goto start
+
+:Worker0
+echo Booting Worker-0
+set ignition ${server}/worker.ign
+set ip 192.168.100.53
+set gw 192.168.100.1
+set netmask 255.255.255.0
+set hostname worker.foo.bar.com
+set ifname ens3
+set nameserver 192.168.100.1
+set device sda
+kernel ${kernel} ip=${ip}::${gw}:${netmask}:${hostname}:${ifname}:none nameserver=${nameserver} rd.neednet=1 initrd=${initrd} console=tty0 coreos.inst=yes coreos.inst.install_dev=${device} coreos.inst.image_url=${image} coreos.inst.ignition_url=${ignition}
+initrd ${initrd}
+boot || imgfree
+goto start
+
+:exit
+exit
